@@ -12,7 +12,10 @@ class Ethereum(commands.Cog):
                             base='eth',
                             guild_ids=[732952864174899230],
                             description='Check the balances of 1 or more ETH addresses.',
-                            base_desc='Ethereum-related commands.')
+                            base_desc='Ethereum-related commands.',
+                            options=[{'name': 'addresses',
+                                      'description': 'The ETH address(es) you want to get the balance of.',
+                                      'required': True, 'type': 3}])
     async def eth_bal(self, ctx: SlashContext, *, addresses: str) -> None:
         if ' ' in (addresses := addresses.strip()):
             addresses = addresses.split()

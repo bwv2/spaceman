@@ -1,14 +1,14 @@
 import aiohttp
 from lib.structs import DictProxy
 from typing import Tuple, Union, Optional
-from urllib.parse import urlencode
+from urllib.parse import urlencode, unquote
 
 PRECISION: int = 18  # Etherscan returns this many spaces after the comma
 
 
 class EtherscanAPI:
     def __init__(self, key: str, session: aiohttp.ClientSession):
-        self.__key = key
+        self.__key: str = key
         self.ses: aiohttp.ClientSession = session
 
     def pad_balance(self, balance: str) -> str:
@@ -27,9 +27,9 @@ class EtherscanAPI:
                     tag: str = 'latest',
                     method: str = 'get',
                     **kwargs) -> Tuple[bool, DictProxy, Optional[str]]:
-        url: str = f'https://api.etherscan.io/api?' + urlencode(dict(module=module, action=action,
-                                                                     tag=tag, apiKey=self.__key,
-                                                                     **kwargs)).replace('%2C', ',')
+        url: str = f'https://api.etherscan.io/api?' + unquote(urlencode(dict(module=module, action=action,
+                                                                             tag=tag, apiKey=self.__key,
+                                                                             **kwargs)))
         res: aiohttp.ClientResponse = await self.ses.request(method=method, url=url)
         json: DictProxy = DictProxy(await res.json())
         if res.status == 200 and json.message.startswith('OK'):
