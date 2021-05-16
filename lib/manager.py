@@ -67,7 +67,12 @@ class Manager:
                     self.env[binding.key] = binding.value
 
     def shorten_address(self, address: str) -> str:
+        """
+        Shorten an address by trimming off 60% and inserting "..." in the middle.
+
+        :param address: The address to shorten
+        :return: The shortened address
+        """
+
         chunk: int = int(len(address) / 5)
-        front: str = address[:chunk]
-        back: str = address[-chunk:]
-        return f'{front}...{back}'
+        return f'{address[:chunk]}...{address[-chunk:]}'
