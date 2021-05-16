@@ -11,7 +11,8 @@ __all__: tuple = (
 initial_extensions: tuple = (
     'cogs.handlers.events',
     'cogs.handlers.errors',
-    'cogs.commands.ethereum'
+    'cogs.commands.ethereum',
+    'cogs.commands.dev.debug'
 )
 
 

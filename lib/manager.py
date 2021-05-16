@@ -25,7 +25,9 @@ class Manager:
             category: str = 'core',
             bracket_color: Fore = Fore.LIGHTMAGENTA_EX,
             category_color: Fore = Fore.MAGENTA,
-            message_color: Fore = Fore.LIGHTWHITE_EX) -> None:
+            message_color: Fore = Fore.LIGHTWHITE_EX,
+            *args,
+            **kwargs) -> None:
         """
         Colorful logging function because why not.
         :param message: The message to log
@@ -35,7 +37,7 @@ class Manager:
         :param message_color: The color of the message
         """
 
-        print(f'{bracket_color}[{category_color}{category}{bracket_color}]: {Style.RESET_ALL}{message_color}{message}')
+        print(f'{bracket_color}[{category_color}{category}{bracket_color}]: {Style.RESET_ALL}{message_color}{message}', *args, **kwargs)
 
     def load_json(self, name: str) -> DictProxy:
         """
